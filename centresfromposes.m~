@@ -1,0 +1,18 @@
+function [ output_args ] = centresfromposes( Poses )
+%CENTRESFROMPOSES Converts camera poses to camera centres
+
+nKeyFrames = size(Poses,2);
+
+path = zeros(nKeyFrames,3);
+
+for i = 1:nKeyFrames
+    path(
+    
+end
+
+
+
+
+
+end
+
