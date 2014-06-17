@@ -5,11 +5,14 @@ path = zeros(nKeyFrames,3);
 
 f = figure;
 hold on;
-axis([0 20 0 20]);
+axis([0 100 0 100]);
 
 
 
 for i = 1:nKeyFrames
+    clc;
+    display(i);
+    display(nKeyFrames);
     [x,z] = ginput(1);
     plot(x,z,'ro');
     path(i,:) = [x 0 z];

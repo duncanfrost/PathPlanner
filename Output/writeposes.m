@@ -6,12 +6,14 @@ nKeyFrames = size(Poses,2);
 fid = fopen(filename,'wt');
 
 for i = 1:nKeyFrames
+    
     mu = logmap2(Poses{i});
+    out = [mu; i];
     
     if i < nKeyFrames
-        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %2.6f %2.6f\n',mu);
+        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %2.6f %2.6f %u\n',out);
     else
-        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %2.6f %2.6f',mu);
+        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %2.6f %2.6f %u',out);
     end
     
     

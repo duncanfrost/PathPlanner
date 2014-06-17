@@ -8,15 +8,12 @@ fid = fopen(filename,'r');
 
 points = [];
 while ~feof(fid)
-   
-    point = fscanf(fid,'%f',3);
-
     
-    
-   
-    if ~isempty(point)
-      points = [points; point'];
-      
+    out = fscanf(fid,'%f',4);
+    if ~isempty(out)
+        point = out(1:3);
+        points = [points; point'];
+        
     end
     
 end

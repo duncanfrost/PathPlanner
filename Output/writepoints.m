@@ -5,10 +5,11 @@ fid = fopen(filename,'wt');
 
 for i = 1:nPoints
     point = points(i,:);
+    out = [point i];
     if i < nPoints
-        fprintf(fid,'%2.6f %2.6f %2.6f\n',point);
+        fprintf(fid,'%2.6f %2.6f %2.6f %u\n',out);
     else
-        fprintf(fid,'%2.6f %2.6f %2.6f',point);
+        fprintf(fid,'%2.6f %2.6f %2.6f %u',out);
     end
     
 

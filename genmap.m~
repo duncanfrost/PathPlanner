@@ -1,0 +1,140 @@
+%% Init
+close all;
+clc;
+clear variables;
+
+s = RandStream('mt19937ar','Seed',0);
+RandStream.setGlobalStream(s);
+
+nKeyFrames = 200;
+nPointsPerKF = 20;
+
+
+%% Get the path
+% path = getpath(nKeyFrames);
+path = genpath2(nKeyFrames,100,100);
+
+%% Add Objects
+Objects{1}.position = [
+
+
+
+%% Generate points
+points = genpoints(path, nPointsPerKF);
+
+
+%% Plot
+
+Poses = posesfrompath(path,0,0);
+K = [320 0 320;
+    0 240 240;
+    0 0 1];
+
+
+display('Calculating Est Measurements');
+Measurements = genmeasurements(Poses,points,K,0);
+points = cleanpoints(Measurements,points);
+EstMeasurements = genmeasurements(Poses,points,K,2);
+
+display('Checking for possible errors');
+camhist = camerameashist(EstMeasurements, nKeyFrames);
+checkfornans(camhist);
+
+
+
+
+estpath = path/2;
+
+
+EstPoses = posesfrompath(estpath,0,0);
+estpath = pathfromposes(EstPoses);
+
+
+
+estpoints = addnoise(points,0);
+estpoints = estpoints/2;
+
+
+
+% EstMeasurements = genmeasurements(EstPoses,estpoints,K,2);
+% 
+
+% MeasCell = measurementstocell(Measurements);
+% EstMeasCell = measurementstocell(EstMeasurements);
+
+% Measurements = cleanmeasurements(Measurements,EstMeasurements);
+
+
+
+
+% CurrentError = getreprojerror(Measurements,EstMeasurements);
+% display(CurrentError);
+
+display('Calculating Directions');
+directions = getdirections(Poses);
+estdirections = getdirections(EstPoses);
+
+
+
+
+% CurrentError = getreprojerror(Measurements,EstMeasurements);
+% display(CurrentError);
+
+display('Calculating Directions');
+directions = getdirections(Poses);
+estdirections = getdirections(EstPoses);
+
+
+
+    
+
+f = figure;
+hold on;
+plot3(path(:,1),path(:,3),path(:,2),'ro');
+
+for i = 1:nKeyFrames
+    plot3([path(i,1) directions(i,1)],[path(i,3) directions(i,3)],[path(i,2) directions(i,2)],'r-');
+end
+
+
+
+% CurrentError = getreprojerror(Measurements,EstMeasurements);
+% display(CurrentError);
+
+display('Calculating Directions');
+directions = getdirections(Poses);
+estdirections = getdirections(EstPoses);
+
+
+
+for i = 1:nKeyFrames
+    plot3([estpath(i,1) estdirections(i,1)],[estpath(i,3) estdirections(i,3)],[estpath(i,2) estdirections(i,2)],'b-');
+end
+plot3(estpath(:,1),estpath(:,3),estpath(:,2),'bo');
+plot3(points(:,1),points(:,3), points(:,2),'rx');
+plot3(estpoints(:,1),estpoints(:,3), estpoints(:,2),'bx');
+
+
+writeposes(EstPoses,'EstPoses.txt');
+writepoints(estpoints,'EstPoints.txt');
+writemeasures(EstMeasurements,'EstMeasurements.txt');
+
+writeposes(Poses,'GTPoses.txt');
+writepoints(points,'GTPoints.txt');
+
+
+
+
+
+% CurrentError = getreprojerror(Measurements,EstMeasurements);
+% display(CurrentError);
+
+display('Calculating Directions');
+directions = getdirections(Poses);
+estdirections = getdirections(EstPoses);
+
+
+
+
+
+axis equal;

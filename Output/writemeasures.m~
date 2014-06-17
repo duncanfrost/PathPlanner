@@ -10,15 +10,17 @@ for i = 1:nMeasurements
     pos = Measurement.position(1:2);
     c = Measurement.c;
     p = Measurement.p;
+    s = Measurement.s;
+    ispoint = Measurement.ispoint;
     
-    output = [pos' c p];
-    
+    output = [pos' s' ispoint c p];
+     
     
     
     if i < nMeasurements
-        fprintf(fid,'%2.6f %2.6f %u %u\n',output);
+        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %u %u %u\n',output);
     else
-        fprintf(fid,'%2.6f %2.6f %u %u',output);
+        fprintf(fid,'%2.6f %2.6f %2.6f %2.6f %u %u %u',output);
     end
 
 end

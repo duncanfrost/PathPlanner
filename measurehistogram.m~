@@ -1,0 +1,16 @@
+function [ output_args ] = measurehistogram(Measurements,points)
+%MEASUREHISTOGRAM gives number of measurements per points
+
+histogram = zeros(size(points,1),1);
+
+for i = 1:size(Measurements,2)
+    histogram(Measurements{i}.p) 
+    
+end
+
+
+
+
+
+end
+

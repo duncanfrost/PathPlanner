@@ -7,16 +7,29 @@ fid = fopen(filename,'r');
 
 i = 0;
 
+
+line = 0;
 while ~feof(fid)
-   
-    mu = fscanf(fid,'%f',6);
-    display(mu);
+    line = line + 1;
     
+    out = fscanf(fid,'%f',7);
+    if (~isempty(out))
     
-    i = i + 1;
-    if ~isempty(mu)
-        T = expmap(mu);
-        Poses{i} = T;
+
+    
+        posemu = out(1:6);
+        display(posemu);
+
+
+
+
+        i = i + 1;
+        if (size(posemu,1) == 6)
+            T = expmap(posemu);
+            Poses{i} = T;
+        else
+            display('Problem!');
+        end
     end
     
 end

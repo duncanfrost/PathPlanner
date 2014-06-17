@@ -9,6 +9,8 @@ t = in(1:3,4);
 arg = (trace(R) - 1)/2;
 
 
+
+
 if (abs(arg-1) < 1e-15)
     arg = 1;
 end

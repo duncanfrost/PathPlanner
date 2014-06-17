@@ -4,9 +4,10 @@ nKeyFrames = size(path,1);
 for i = 1:nKeyFrames-1
     diffx =  path(i+1,1) - path(i,1);
     diffz =  path(i+1,3) - path(i,3);
-    angle = tan(diffz/diffx);
+    angle = -atan2(diffx,diffz);
     
     angle = angle + randn*sigma_r;
+
     
     
     R = [cos(angle) 0 sin(angle);
