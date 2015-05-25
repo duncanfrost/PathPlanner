@@ -8,7 +8,7 @@ nKeyFrames = size(path,1);
 for i = 1:nKeyFrames
   
         mu = path(i,:);
-        Sigma = [1 0 0; 0 1 0; 0 0 1];
+        Sigma = [300 0 0; 0 300 0; 0 0 300];
         R = chol(Sigma);
         positions = repmat(mu,nPointsPerKF,1) + randn(nPointsPerKF,3)*R;
         

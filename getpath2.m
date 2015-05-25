@@ -1,4 +1,4 @@
-function [path] = getpath(nKeyFrames)
+function [path] = getpath2(nKeyFrames)
 %GETPATH Asks the user to draw a path for the camera. 
 
 path = zeros(nKeyFrames,3);
@@ -9,16 +9,14 @@ axis([0 300 0 300]);
 
 
 
-for i = 1:nKeyFrames
-    clc;
-    display(i);
-    display(nKeyFrames);
-    [x,z] = ginput(1);
-    plot(x,z,'ro');
-    path(i,:) = [x 0 z];
-end
+f = figure;
+axis([0 100 0 100]);
+h = imfreehand('Closed',false);
 
+pos = getPosition(h);
+close all;
 
+path = [pos(1:nKeyFrames,1) zeros(nKeyFrames,1) pos(1:nKeyFrames,2)];
 
 
 %Normalises the path so that the first keyframe is at [0 0 0]
@@ -28,7 +26,7 @@ for i = 1:nKeyFrames
 end
 
 
-close(f);
+
 
 
 

@@ -1,4 +1,4 @@
-function [ Measurements ] = genobjectmeasurements(Poses, Map, K, sigma)
+function [ Measurements ] = genobjectmeasurements(Poses, Map, K, sigma, limit)
 %GENOBJECTMEASUREMENTS Generates object measurements for a set of poses
 
 
@@ -21,15 +21,15 @@ for i = 1:nKeyFrames
     nPointMeasurements = 0;
     
     
-    for j = 1:nMap
+    for j = 1:size(Map,2)
         if (Map{j}.ispoint)
-            if (nPointMeasurements < 15)
+            if (nPointMeasurements < limit)
                 
                 
                 Point_w = [Map{j}.position'; 1];
                 Point_c = T_wc*Point_w;
                 
-                if (Point_c(3) > 0.5 && Point_c(3) < 7)
+                if (Point_c(3) > 0.5 && Point_c(3) < 30)
                     
                     Measure_norm = zeros(3,1);
                     Measure_norm(1) = Point_c(1)/Point_c(3);

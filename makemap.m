@@ -9,12 +9,14 @@ for i = 1:size(points,1)
     mapCount = mapCount + 1;
     Map{mapCount}.position = points(i,:);
     Map{mapCount}.ispoint = true;
+    Map{mapCount}.assigned = true;
 end
 
 for i = 1:size(objects,1)
     mapCount = mapCount + 1;
     Map{mapCount}.position = objects(i,:);
     Map{mapCount}.ispoint = false;
+    Map{mapCount}.assigned = true;
 end
 
 

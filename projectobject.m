@@ -9,15 +9,23 @@ X = pointCamera(1);
 Y = pointCamera(2);
 Z = pointCamera(3);
 
-if (pointCamera(3) > 0.5)
+
+Xnn = K(1,1)*X + K(1,3)*Z;
+Ynn = K(2,2)*Y + K(2,3)*Z;
+Znn = Z;
+
+
+
+
+if (pointCamera(3) > 0.5 && pointCamera(3) < 30)
 
 
 
     Jp = zeros(2,3);
     for p = 1:3
         [dX_dp, dY_dp, dZ_dp] = diffXn3DIntern(T,K,p);
-        Jp(1,p) = (dX_dp*Z - dZ_dp*X)/(Z^2);
-        Jp(2,p) = (dY_dp*Z - dZ_dp*Y)/(Z^2);
+        Jp(1,p) = (dX_dp*Znn - dZ_dp*Xnn)/(Z^2);
+        Jp(2,p) = (dY_dp*Znn - dZ_dp*Ynn)/(Z^2);
     end
 
 
@@ -45,7 +53,18 @@ if (pointCamera(3) > 0.5)
     if ~(xr(1) > 1 && xr(1) < 640 && xr(2) > 1 && xr(2) < 480)
         xr = [];
         s = [];
+    else
+        xr(1) = xr(1) + randn*10;
+        xr(2) = xr(2) + randn*10;
+        boundnoise = randn*10;
+        s(1) = s(1) + boundnoise;
+        s(2) = s(2) + boundnoise;
     end
+    
+    
+          
+  
+    
     
 end
 
